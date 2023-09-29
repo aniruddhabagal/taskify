@@ -12,6 +12,10 @@ type Props = {
 };
 
 function SingleTodo({ todo, todos, setTodos }: Props) {
+  const handleDelete = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   const handleDone = (id: number) => {
     setTodos(
       todos.map((todo) =>
@@ -31,7 +35,7 @@ function SingleTodo({ todo, todos, setTodos }: Props) {
         <span className={styles.icon}>
           <AiFillEdit />
         </span>
-        <span className={styles.icon} onClick={() => handleDone(todo.id)}>
+        <span className={styles.icon} onClick={() => handleDelete(todo.id)}>
           <AiFillDelete />
         </span>
         <span className={styles.icon} onClick={() => handleDone(todo.id)}>
