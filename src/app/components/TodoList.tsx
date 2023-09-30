@@ -50,7 +50,7 @@ const TodoList: React.FC<Props> = ({
           >
             <span className={styles.todos__heading}>Completed Tasks</span>
 
-            {completedTodos.map((todo, index) => (
+            {completedTodos?.map((todo, index) => (
               <SingleTodo
                 index={index}
                 key={todo.id}
