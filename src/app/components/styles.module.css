@@ -60,7 +60,9 @@
   padding: 15px;
   background-color: rgb(50, 195, 205);
 }
-
+.remove {
+  background-color: rgb(235, 103, 80);
+}
 .dragactive {
   background-color: rgb(0, 221, 236);
 }
@@ -69,9 +71,7 @@
   background-color: rgb(255, 38, 0);
 }
 
-.remove {
-  background-color: rgb(235, 103, 80);
-}
+
 
 .todos__heading {
   font-size: 30px;
@@ -97,14 +97,14 @@
   transform: scale(1.03);
 }
 
-.todos__single--text {
+.todos__singleText {
   flex: 1;
   padding: 5px;
   border: none;
   font-size: 20px;
 }
 
-.todos__single--text:focus {
+.todos__singleText:focus {
   outline: none;
 }
 
