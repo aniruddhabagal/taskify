@@ -1,64 +1,69 @@
 import React from "react";
-import styles from "./styles.module.css";
 import { Todo } from "../model";
+import styles from "./styles.module.css";
 import SingleTodo from "./SingleTodo";
 import { Droppable } from "react-beautiful-dnd";
 
-interface Props {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  completedTodos: Todo[];
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+interface props {
+  todos: Array<Todo>;
+  setTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
+  setCompletedTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
+  CompletedTodos: Array<Todo>;
 }
-// import React from "react";
 
-const TodoList: React.FC<Props> = ({
+const TodoList: React.FC<props> = ({
   todos,
   setTodos,
-  completedTodos,
+  CompletedTodos,
   setCompletedTodos,
 }) => {
   return (
     <div className={styles.container}>
       <Droppable droppableId="TodosList">
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
-            className={styles.todos}
+            className={`${styles.todos} ${
+              snapshot.isDraggingOver ? `${styles.dragactive}` : ``
+            }`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
             <span className={styles.todos__heading}>Active Tasks</span>
-            {todos.map((todo, index) => (
+            {todos?.map((todo, index) => (
               <SingleTodo
                 index={index}
-                key={todo.id}
-                todo={todo}
                 todos={todos}
+                todo={todo}
+                key={todo.id}
                 setTodos={setTodos}
               />
             ))}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
-
       <Droppable droppableId="TodosRemove">
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
-            className={`${styles.todos} ${styles.remove}`}
             ref={provided.innerRef}
             {...provided.droppableProps}
+            className={`${styles.todos}  ${
+              snapshot.isDraggingOver
+                ? `${styles.dragcomplete}`
+                : `${styles.remove}`
+            }`}
           >
             <span className={styles.todos__heading}>Completed Tasks</span>
-
-            {completedTodos?.map((todo, index) => (
+            {CompletedTodos?.map((todo, index) => (
               <SingleTodo
                 index={index}
-                key={todo.id}
+                todos={CompletedTodos}
                 todo={todo}
-                todos={completedTodos}
+                key={todo.id}
                 setTodos={setCompletedTodos}
               />
             ))}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
